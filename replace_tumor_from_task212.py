@@ -9,7 +9,7 @@ Usage:
       --seg006 /path/to/output/CaseID/task006/CaseID.nii.gz \
       --seg212 /path/to/output/CaseID/task212/CaseID.nii.gz \
       --out    /path/to/output/CaseID/CaseID_seg_final.nii.gz \
-      --tumor_label 1 \
+      --tumor_label 6 \
       [--fallback_keep_006_if_212_empty 0]
 
 Default tumor_label is 1.
@@ -29,9 +29,9 @@ def main():
     ap.add_argument("--seg006", required=True, help="Task006 prediction .nii.gz (multi-class)")
     ap.add_argument("--seg212", required=True, help="Task212 tumor .nii.gz (binary or multi-class with tumor>0)")
     ap.add_argument("--out",    required=True, help="Output path for merged segmentation .nii.gz")
-    ap.add_argument("--tumor_label", type=int, default=1, help="Numeric label id for tumor in Task006 space (default: 1)")
+    ap.add_argument("--tumor_label", type=int, default=6, help="Numeric label id for tumor in Task006 space (default: 6)")
     ap.add_argument("--fallback_keep_006_if_212_empty", type=int, default=0,
-                    help="If 1 and Task212 tumor is empty, keep Task006 tumor as-is. Default 0 = remove tumor when 212 is empty.")
+                    help="If 6 and Task212 tumor is empty, keep Task006 tumor as-is. Default 0 = remove tumor when 212 is empty.")
     args = ap.parse_args()
 
     img006, seg006 = load_nii(args.seg006)
