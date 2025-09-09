@@ -145,3 +145,20 @@ TASK212_OUT="$nnUNET_DIR/task212"
 mkdir -p "$TASK212_OUT"
 nnUNet_predict -i "$nnUNET_DIR" -o "$TASK212_OUT" -m 3d_fullres -t 212 -f 0
 OK "Task212 prediction finished – results in $TASK212_OUT"
+
+# ──────────────────────────────────────────────────────────────── 7. replace tumor from task212
+STEP "=== Replacing tumor label in Task006 with Task212 tumor …"
+CASE_NII_BASENAME="${INSTANCE_ID}.nii.gz"
+
+SEG006="$TASK006_OUT/$CASE_NII_BASENAME"
+SEG212="$TASK212_OUT/$CASE_NII_BASENAME"
+OUT_MERGED="$nnUNET_DIR/${INSTANCE_ID}_seg_final.nii.gz"
+
+python "$SCRIPT_DIR/replace_tumor_from_task212.py" \
+  --seg006 "$SEG006" \
+  --seg212 "$SEG212" \
+  --out    "$OUT_MERGED" \
+  --tumor_label 1 \
+  --fallback_keep_006_if_212_empty 0
+
+OK "Final merged segmentation written to $OUT_MERGED"
