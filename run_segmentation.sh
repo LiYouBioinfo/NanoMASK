@@ -131,7 +131,17 @@ echo "────────────────────────�
 # ──────────────────────────────────────────────────────────────── 6. cleanup tmp + nnUNet
 STEP "=== Cleaning tmp/ …"; rm -rf "$nnUNET_TMP_DIR"; OK "tmp/ removed"
 
-STEP "=== Running nnUNet_predict …"
+# Run Task006
+STEP "=== Running nnUNet_predict (task 006) …"
 cd "$SCRIPT_DIR/nnunet"
-nnUNet_predict -i "$nnUNET_DIR" -o "$nnUNET_DIR" -m 3d_fullres -t 006 -f 0
-OK "nnUNet prediction finished – results in $nnUNET_DIR"
+TASK006_OUT="$nnUNET_DIR/task006"
+mkdir -p "$TASK006_OUT"
+nnUNet_predict -i "$nnUNET_DIR" -o "$TASK006_OUT" -m 3d_fullres -t 006 -f 0
+OK "Task006 prediction finished – results in $TASK006_OUT"
+
+# Run Task212
+STEP "=== Running nnUNet_predict (task 212) …"
+TASK212_OUT="$nnUNET_DIR/task212"
+mkdir -p "$TASK212_OUT"
+nnUNet_predict -i "$nnUNET_DIR" -o "$TASK212_OUT" -m 3d_fullres -t 212 -f 0
+OK "Task212 prediction finished – results in $TASK212_OUT"
