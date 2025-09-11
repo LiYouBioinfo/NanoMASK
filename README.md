@@ -4,6 +4,14 @@ This repo is forked from [NanoMask](https://github.com/bowang-lab/NanoMASK) and 
 
 # Installation
 
+# Prepare folders
+```bash
+mkdir -p /platforms/radiomics/
+cd /platforms/radiomics/
+git clone https://github.com/LiYouBioinfo/CRayOnSegmentation.git
+cd CRayOnSegmentation
+```
+
 ```bash
 # Prepare virtual env
 python3.9 -m venv .venv
@@ -18,7 +26,7 @@ pip install -r requirements.txt --extra-index-url https://download.pytorch.org/w
 curl -L -o /tmp/greedy.tar.gz \
   "https://master.dl.sourceforge.net/project/greedy-reg/Experimental/greedy-1.3.0-alpha-Linux-x86_64.tar.gz?viasf=1" && \
 tar -xzf /tmp/greedy.tar.gz -C /tmp && \
-mv /tmp/greedy-1.3.0-alpha-Linux-x86_64/bin/* /platforms/radiomics/.venv/bin/ && \
+mv /tmp/greedy-1.3.0-alpha-Linux-x86_64/bin/* .venv/bin/ && \
 rm -rf /tmp/greedy-1.3.0-alpha-Linux-x86_64 /tmp/greedy.tar.gz && \
 greedy -h | head -n 3
 ```
