@@ -33,7 +33,7 @@ greedy -h | head -n 3
 # Download Pretrained Models
 ```bash
 # Download the NanoMask Pretrained Model and the in-house tumor segmentation model from the private AWS S3 repo. Credentials can be found from CrayonAI AWS us-east-1 S3
-cd /platforms/radiomics/NanoMask/nnunet
+cd NanoMask/nnunet
 aws s3 cp s3://radiomics/nnUNet_data.tar.gz ./
 tar xvf nnUNet_data.tar.gz
 ```
