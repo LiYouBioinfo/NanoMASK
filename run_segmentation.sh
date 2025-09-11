@@ -47,7 +47,7 @@ STEP "=== PET DICOM dir : $PET_PATH_DCM"
 STEP "=== Instance ID   : $INSTANCE_ID"
 
 # 2) workspace
-OUTPUT_DIR="/platforms/radiomics/NanoMask/output/${INSTANCE_ID}"
+OUTPUT_DIR="/platforms/radiomics/CRayOnSegmentation/output/${INSTANCE_ID}"
 nnUNET_DIR="$OUTPUT_DIR"                  # common staging (CT+PET) for multi-modal tasks
 nnUNET_TMP_DIR="$OUTPUT_DIR/tmp"
 nnUNET_TMP_CT_DIR="$nnUNET_TMP_DIR/CT"
@@ -64,7 +64,7 @@ nnUNET_TMP_CT="$nnUNET_TMP_DIR/CT_0000.nii.gz"
 nnUNET_TMP_PET="$nnUNET_TMP_DIR/PET_0001.nii.gz"
 
 STEP "=== Converting CT DICOMs → $nnUNET_TMP_CT …"
-python "$SCRIPT_DIR/preprocessing/dcm2nii.py" -i "$nnUNET_TMP_DIR" -o "$nnUNET_TMP_DIR" -a CT
+python "$SCRIPT_DIR/NanoMask/preprocessing/dcm2nii.py" -i "$nnUNET_TMP_DIR" -o "$nnUNET_TMP_DIR" -a CT
 OK "CT conversion done"
 
 # blank organ mask (for affine_registration.py)
@@ -79,7 +79,7 @@ fi
 
 # 4) affine-registration CT → PET (Greedy)
 STEP "=== Affine-registering CT → PET (Greedy) …"
-python "$SCRIPT_DIR/preprocessing/affine_registration.py" -i "$nnUNET_TMP_DIR" -m CT
+python "$SCRIPT_DIR/NanoMask/preprocessing/affine_registration.py" -i "$nnUNET_TMP_DIR" -m CT
 greedy -d 3 -rf "$nnUNET_TMP_PET" -ri LINEAR \
        -rm "$nnUNET_TMP_CT"  "$nnUNET_TMP_DIR/CT_on_PET.nii.gz" \
        -r  "$nnUNET_TMP_DIR/CT2PET.mat"
@@ -112,9 +112,10 @@ ln -sfn "$nnUNET_DIR/${INSTANCE_ID}_0000.nii.gz" "$TASK213_IN/${INSTANCE_ID}_000
 
 # 7) Run Task006 (CT+PET, unchanged)
 STEP "=== Running nnUNet_predict (Task006; CT+PET) …"
-cd "$SCRIPT_DIR/nnunet"
+cd "$SCRIPT_DIR/NanoMask/nnunet"
 TASK006_OUT="$nnUNET_DIR/task006"
 mkdir -p "$TASK006_OUT"
+echo -e "Running prediction using the following command:\n nnUNet_predict -i "$nnUNET_DIR" -o "$TASK006_OUT" -m 3d_fullres -t 006 -f 0"
 nnUNet_predict -i "$nnUNET_DIR" -o "$TASK006_OUT" -m 3d_fullres -t 006 -f 0
 OK "Task006 prediction finished – results in $TASK006_OUT"
 
@@ -130,7 +131,7 @@ STEP "=== Replacing tumor label in Task006 with Task213 tumor …"
 CASE_NII_BASENAME="${INSTANCE_ID}.nii.gz"
 SEG006="$TASK006_OUT/$CASE_NII_BASENAME"
 SEG213="$TASK213_OUT/$CASE_NII_BASENAME"
-OUT_MERGED="$nnUNET_DIR/${INSTANCE_ID}_seg_final.nii.gz"
+OUT_MERGED="$nnUNET_DIR/${INSTANCE_ID}.nii.gz"
 
 python "$SCRIPT_DIR/replace_tumor_from_task213.py" \
   --seg006 "$SEG006" \
