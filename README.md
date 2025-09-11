@@ -39,5 +39,7 @@ tar xvf nnUNet_data.tar.gz
 ```
 
 ## Acknowledgement
+
 The regular organ segmentation model is based on the [NanoMask](https://github.com/bowang-lab/NanoMASK). Thanks for the Bowang Lab for making the model publicly available!
-This customized model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework. Thanks for the nnUNet team very much!
+
+This NanoMask model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework. Thanks for the nnUNet team very much!
