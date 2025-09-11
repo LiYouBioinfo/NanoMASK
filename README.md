@@ -1,3 +1,5 @@
+This repo is forked from [NanoMask](https://github.com/bowang-lab/NanoMASK) and used in combination of our in-house tumor segmentation model. Huge thanks to Bowang Lab for making the model publicly available!
+
 # Installation
 
 ```bash
@@ -28,5 +30,5 @@ tar xvf nnUNet_data.tar.gz
 ```
 
 ## Acknowledgement
-The regular organ segmentation model is based on the [NanoMask]([https://github.com/MIC-DKFZ/nnUNet](https://github.com/bowang-lab/NanoMASK)). Thanks for the Bowang Lab for making the model publicly available!
+The regular organ segmentation model is based on the [NanoMask](https://github.com/bowang-lab/NanoMASK). Thanks for the Bowang Lab for making the model publicly available!
 This customized model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework. Thanks for the nnUNet team very much!
