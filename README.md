@@ -4,7 +4,6 @@ This repo is forked from [NanoMask](https://github.com/bowang-lab/NanoMASK) and 
 
 # Installation
 
-# Prepare folders
 ```bash
 mkdir -p /platforms/radiomics/
 cd /platforms/radiomics/
