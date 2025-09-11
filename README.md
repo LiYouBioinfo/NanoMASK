@@ -1,4 +1,6 @@
-This repo is forked from [NanoMask](https://github.com/bowang-lab/NanoMASK) and used in combination of our in-house tumor segmentation model. Huge thanks to Bowang Lab for making the model publicly available!
+# CrayOnSegmentation
+
+This repo is forked from [NanoMask](https://github.com/bowang-lab/NanoMASK) and used in combination of our in-house tumor segmentation model. Huge thanks to Bowang Lab for making the model publicly available! The NanoMask component of this package remains unchanged from the original release.
 
 # Installation
 
