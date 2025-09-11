@@ -8,6 +8,8 @@ pip install -r requirements.txt --extra-index-url https://download.pytorch.org/w
 
 # Download NanoMask Pretrained Models
 cd /platforms/radiomics/NanoMask/nnunet
+
+# Credentials found in CrayonAI AWS us-east-1 S3
 aws s3 cp s3://radiomics/nnUNet_data.tar.gz ./
 tar xvf nnUNet_data.tar.gz
 
